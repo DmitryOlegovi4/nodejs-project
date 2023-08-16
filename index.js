@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mysql = require("mysql2");
 const multer = require("multer");
@@ -9,7 +10,7 @@ const HTMLParser = require('node-html-parser');
 const fs = require('fs');
 const uniqid = require('uniqid');
 const index = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 index.use(cookieParser('dmitry')); //secret key
 index.use(express.static(`${__dirname}/public`));
@@ -25,14 +26,14 @@ index.set('view engine', 'handlebars');
 
 
 const connection = mysql.createConnection({
-    host: "bqcrjka5bwtvebrem2u6-mysql.services.clever-cloud.com",
-    user: "ulsfrvenjystf4av",
-    password: "eDzPz4CCUgZl3MqL8rI2",
-    database: "bqcrjka5bwtvebrem2u6"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB,
 })
 connection.connect((error)=>{
-    if(error) throw error
-    console.log("Подключение к БД установлено")
+    if(error) throw error;
+    console.log("Подключение к БД установлено");
 })
 
 index.get("/", (req, res)=>{
