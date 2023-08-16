@@ -1,0 +1,54 @@
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('assets/img/{{{img_bg}}}-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="{{{type_page}}}-heading">
+                    <h1>{{{ heading }}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-5 mx-auto">
+            <form onsubmit="sendForm(this); return false;">
+                <div class="mb-3">
+                    <input name="email" type="email" class="form-control" placeholder="E-mail">
+                    <p id="infoUser" class="text-danger"></p>
+                </div>
+                <div class="mb-3">
+                    <input name="pass" type="password" class="form-control" placeholder="Пароль">
+                    <p id="infoPass" class="text-danger"></p>
+                </div>
+                <div class="mb-3"><input type="submit" class="form-control btn btn-primary" value="Войти"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let infoUser = document.getElementById("infoUser");
+    let infoPass = document.getElementById("infoPass");
+    function sendForm(form) {
+        let formData = new FormData(form);
+        fetch("/login",{
+            method: "post",
+            body: formData
+        }).then(response => response.text())
+                .then(result => {
+                    console.log(result);
+                    if(result === "error email"){
+                        infoUser.innerText = "Email введён неверно";
+                        infoPass.innerText = "";
+                    }else if(result === "error pass"){
+                        infoUser.innerText = "";
+                        infoPass.innerText = "Пароль введён неверно";
+                    }else if(result === "success"){
+                        location.href = "/lk";
+                    }
+                })
+    }
+</script>
