@@ -1,10 +1,10 @@
 {
-  "name": "fullstack02",
+  "name": "dim_project",
   "version": "1.0.0",
   "description": "Пет проект",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "keywords": [
     "node",
