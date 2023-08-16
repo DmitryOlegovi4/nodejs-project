@@ -11,7 +11,7 @@ const uniqid = require('uniqid');
 const index = express();
 const PORT = 3000;
 
-index.use(cookieParser('back02')); //secret key
+index.use(cookieParser('dmitry')); //secret key
 index.use(express.static(`${__dirname}/public`));
 
 index.engine(
@@ -25,10 +25,10 @@ index.set('view engine', 'handlebars');
 
 
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "backend02"
+    host: "bqcrjka5bwtvebrem2u6-mysql.services.clever-cloud.com",
+    user: "ulsfrvenjystf4av",
+    password: "eDzPz4CCUgZl3MqL8rI2",
+    database: "bqcrjka5bwtvebrem2u6"
 })
 connection.connect((error)=>{
     if(error) throw error
@@ -275,7 +275,7 @@ index.post("/addArticle", multer().none(), (req, response)=>{
     })
 })
 
-index.listen(PORT, ()=>{
+index.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server started on port ${PORT}`)
 })
 
